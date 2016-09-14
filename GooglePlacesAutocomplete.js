@@ -554,7 +554,7 @@ const GooglePlacesAutocomplete = React.createClass({
 
   _renderGoogleLogo: function() {
     if(this.props.enablePoweredByContainer) {
-      let imageSource = require('./images/powered_by_google.png');
+      let imageSource = require('./images/powered_by_google_on_white.png');
       return (
         <View
           style={[defaultStyles.poweredContainer, this.props.styles.poweredContainer]}
