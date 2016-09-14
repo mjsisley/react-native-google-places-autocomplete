@@ -530,24 +530,31 @@ const GooglePlacesAutocomplete = React.createClass({
     this.setState({listViewDisplayed: true});
   },
 
-  _getListView() {
+    _getListView() {
     if ((this.state.text !== '' || this.props.predefinedPlaces.length || this.props.currentLocation === true) && this.state.listViewDisplayed === true) {
       return (
-        <ListView
-          keyboardShouldPersistTaps={true}
-          keyboardDismissMode="on-drag"
-          style={[defaultStyles.listView, this.props.styles.listView]}
-          dataSource={this.state.dataSource}
-          renderRow={this._renderRow}
-          renderSeparator={this._renderSeparator}
-          automaticallyAdjustContentInsets={false}
+        <View>
+          <ListView
+            keyboardShouldPersistTaps={true}
+            keyboardDismissMode="on-drag"
+            style={[defaultStyles.listView, this.props.styles.listView]}
+            dataSource={this.state.dataSource}
+            renderRow={this._renderRow}
+            automaticallyAdjustContentInsets={false}
 
-          {...this.props}
-        />
+            {...this.props}
+          />
+          {this._renderGoogleLogo()}
+        </View>
       );
     }
 
+    return null;
+  },
+
+  _renderGoogleLogo: function() {
     if(this.props.enablePoweredByContainer) {
+      let imageSource = (this.props.poweredByColor == 'dark' ? require('./images/powered_by_google_on_white.png') : require('./images/powered_by_google_on_non_white.png'));
       return (
         <View
           style={[defaultStyles.poweredContainer, this.props.styles.poweredContainer]}
@@ -555,14 +562,13 @@ const GooglePlacesAutocomplete = React.createClass({
           <Image
             style={[defaultStyles.powered, this.props.styles.powered]}
             resizeMode={Image.resizeMode.contain}
-            source={require('./images/powered_by_google_on_white.png')}
+            source={imageSource}
           />
         </View>
       );
     }
-
-    return null;
   },
+  
   render() {
     let { onChangeText, onFocus, ...userProps } = this.props.textInputProps;
     return (
